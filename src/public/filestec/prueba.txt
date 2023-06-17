@@ -1,0 +1,98 @@
+
+Proyecto: Primer pre-entrega ecommerce programación backend
+Realizado por: Frugoni Nicolás
+Comisión: #43335
+
+Detalle funcionamiento:
+Para ejecutar la aplicación del terminal se debe enviar el siguiente comando: npm start
+El proyecto se estructuro dentro de carpeta src dentro de la cual se encuentran las siguientes carpetas y archivos:
+-	app.js: archivo principal donde se configuran las acciones del servidor como ser: puerto, routes, formato de recepción de datos y files public; para correr el programa se debe enviar del terminal el comando npm start.
+El comando npm start se configuro en el script ("start": "nodemon src/app.js") del package.json
+
+-	routes: contiene dos archivos carts.js y products.js donde se configuraron las rutas y acciones para el funcionamiento de la API
+o	carts.js: esta route se utiliza para la gestión del carrito por parte de usuario
+	GET: este método tiene la opción de realizar la consulta de
+•	Mostrar todos los carts guardados en base: http://localhost:8080/api/carts 
+•	Mostar la opción de filtrar por límite la cantidad de carts para mostrar:  http://localhost:8080/api/carts?limit=3
+Cuando un usuario envía la petición el programa verificara si por la req.query viene un parámetro, SI viene retornara un status y mensaje con el listado de productos filtrado por limites ejecutando el método carts (components/cartsmanager.js), SI NO vine un límite definido retornara un status y mensaje con todos los carritos ejecutando el método carts (components/cartsmanager.js).
+•	Búsqueda por id: http://localhost:8080/api/carts/:pid se utiliza para buscar y filtrar un carrito por id.
+Cuando el usuario envía la petición el programa buscara el id y ejecutara el método cartById (components/ cartsmanager.js), 
+SI encuentra el producto retornara un status y mensaje con el carrito filtrado, 
+SI NO retornara un status y mensaje informando que no se encontró el carrito buscado en base.
+
+	POST add carts & increment quantity: http://localhost:8080/api/crearcarts/:cid/products/:pid 
+Para este método se incorporó una lógica que verifica y valida el dato para indicar a la route que acción realizar en la base del archivo cart.json.
+Cuando el usuario envía la petición con el id del carts y el id del products para agregar, el programa primero verifica si el producto existe en la base de datos (/files/products.json), SI NO existe devuelve un error con status y mensaje para informar al usuario, SI el producto existe, el programa pasa a verificar si el carts existe, SI NO existe creara un nuevo carts con el producto ejecutando el método addCarts (components/cartsmanager.js), en caso de que el carrito SI existe ejecutara método addCarts (components/cartsmanager.js) para aumentar la cantidad del producto dentro del carrito si este ya existía dentro del mismo, en caso que no exista creara un nuevo producto dentro del carrito, para este caso se agregó la funcionalidad para que se ordenen los productos dentro de carrito de menor a mayor.
+Nota: cada vez que se crea un nuevo carrito se crea un id único auto incremental que lo gestiona el método addCarts (components/cartsmaneger.js).
+
+	POST discount quantity carts: http://localhost:8080/api/deletequantitycarts/:cid/products/:pid 
+Para este método se incorporó una lógica que verifica y valida el dato para indicar a la route que acción realizar en la base del archivo carts.json.
+Cuando el usuario envía la petición con el id del carts y el id del products para disminuir la cantidad, el programa primero verifica si el carrito existe en la base de datos (/files/carts.json), SI NO existe devuelve un error con status y mensaje para informar al usuario, 
+SI el carrito existe verificar si el producto existe dentro del carrito, SI este existe en la base de datos (/files/carts.json) se disminuye la cantidad ejecutando el método discountQuantityPro (components/cartsmanager.js) hasta llegar a la cantidad de 1 (si quiere descontar una cantidad menor a 1 se enviar un mensaje de status informando esta situación y no seguirá descontando), SI NO existe el producto dentro del carrito devuelve un error con status y mensaje.
+
+o	products.js:
+	GET: este método tiene la opción de realizar la consulta de
+•	Mostrar todos los productos guardados en base: http://localhost:8080/api/:products
+•	Mostar la opción de filtrar por límite la cantidad de productos para mostrar:  http://localhost:8080/api/products?limit=2
+Cuando el usuario envía la petición el programa verificara si por la req.query viene un parámetro, 
+SI viene retornara un status y mensaje con el listado de productos filtrado por limites ejecutando el método products (components/productManager.js), 
+SI NO vine un límite definido retornara un status y mensaje con todos los carritos ejecutando el método products (components/productManager.js).
+
+•	Búsqueda por id: http://localhost:8080/api/products/:pid se utiliza para buscar y filtrar un producto por id.
+Cuando el usuario envía la petición el programa buscara el id y ejecutara el método productById (components/productManager.js), 
+SI encuentra el producto retornara un status y mensaje con el producto filtrado, 
+SI NO retornara un status y mensaje informando que no se encontró el producto buscado en base.
+
+POST: addproducts http://localhost:8080/api/products/crearproducto para este método se incorporó una lógica que verifica y valida el dato para indicar a la route que acción realizar en la base del archivo products.json.
+Cuando el usuario envía la petición con el id del products y parámetros para agregar, el programa primero verifica si el producto viene con todos los parámetros necesarios completos (title, description, code, Price, status, category, stock) para agregarlo en la base (/files/products.json), para el caso del parámetro thumbnails sino viene en la petición creara un array vacío, si viene en la petición creara estos parámetros con los datos correspondientes. En caso de que NO vengan todos los parámetros retornara un error con status y mensajes, SI vienen todos los parámetros se pasara a verificar si el code del nuevo producto ya existe en otros productos, 
+SI el code ya existe se retorna un status con mensaje informando la situación para que el usuario cree un nuevo code, 
+SI NO existe se creara el producto con todos los parámetros ejecutando el método addProduct (components/productManager.js).
+Nota: cada vez que se crea un nuevo producto se crea un id único auto incremental que lo gestiona el método addProduct (components/productManager.js).
+
+	PUT: http://localhost:8080/api/products/actulizarproducto/:pid este método se utiliza para modificar la propiedades de un objeto de forma completa, para este método se incorporó una lógica que verifica y valida el dato para indicar a la route que acción realizar en la base del archivo products.json.
+Cuando el usuario envía la petición con el id del products y los parámetros para modificar el producto completo, el programa primero verifica si el producto existe, SI NO existe retorna status y mensaje informando la situación, SI existe se pasara a verificar la petición viene con todos los parámetros necesarios (title, description, code, Price, status, category, stock) para agregarlo en la base (/files/products.json), para el caso del parámetro thumbnails sino viene en la petición buscara en la base y dejara los paramatros que estaban guaradados, si viene en la petición se pasara estos datos en la petición. 
+SI vienen todos los parámetros se pasará a verificar si el code del nuevo producto ya existe en otros productos, SI el code ya existe se retorna un status con mensaje informando la situación para que el usuario cree un nuevo code, SI NO existe se modificar el producto con todos los parámetros ejecutando el método updateProduct (components/productManager.js). 
+En caso de que NO vengan todos los parámetros retornara un error con status y mensajes.
+
+	PATCH: http://localhost:8080/api/products/actulizarparametro/:pid este método se utiliza para modificar las propiedades de un objeto de forma parcial, es decir el elemento especifico que el usuario designe y no es necesario enviar de forma completa.
+Cuando el usuario envía la petición con el id del products y los parámetros para modificar el producto de forma parcial, el programa primero verificara si el producto existe, 
+SI NO existe retorna status y mensaje informando la situación, 
+SI existe se pasará a verificar si el code del nuevo producto ya existe en otros productos, SI el code ya existe se retorna un status con mensaje informando la situación para que el usuario cree un nuevo code, SI NO existe se modificar el producto con todos los parámetros ejecutando el método updateParam (components/productManager.js). 
+
+	DELETE: http://localhost:8080/api/products/eliminarproducto/:id este método se utiliza para eliminar un producto forma completa de la base (/files/products.json).
+Cuando el usuario envía la petición con el id del products para eliminar el producto, el programa primero verifica si el producto existe, 
+SI NO existe retorna status y mensaje informando la situación, 
+SI existe se pasará a ejecutar el método deleteProduct(components/productManager.js) y se eliminara el producto de la base.
+
+-	components: se crearon los archivos cartsmanager.js y productManager.js los cual contienen los métodos que se ejecutan cuando se utilizan las API´S creadas para el CRUD.
+o	cartsmanager.js: archivo que contiene todos los métodos que se ejecutan de acuerdo a la petición de la API para la manipulación del carrito y  se aplican en la base (/files/carts.json).
+	carts: cuando se ejecuta este método leerá el archivo (/files/carts.json) donde se guardan todos carritos creados y retornara el array con el resultado de lectura.
+	addCarts: este método se utiliza para crear carrito y para aumentar la cantidad, además cuando se crea un nuevo carrito es el encargado de gestionar el id auto incremental. 
+Cuando se ejecuta este método va a buscar si el id de carrito existe, 
+SI existe, buscara si el producto existe dentro del carrito, SI NO existe el producto lo creara dentro del carrito, SI existe incrementara la cantidad del carrito +1.
+SI NO existe el carrito creara uno nuevo con el producto seteado.
+	discountQuantityPro: este método se utiliza para descontar la cantidad de un producto, antes de realizar el descuento verifica si la cantidad de producto es mayor 1, si es mayor va a restar 1 al producto, si es menor a 1 no realizara el descuento. Esta condición se utiliza para controlar el que la cantidad del producto no sea 0 o números negativos.
+
+o	productManager.js: archivo que contiene todos los métodos que se ejecutan de acuerdo a la petición de la API para la manipulación del producto y se aplican en la base (/files/products.json).
+
+	products: cuando se ejecuta este método leerá el archivo (/files/products.json) donde se guardan todos productos creados y retornara el array con el resultado de lectura.
+
+	addProduct: este método se utiliza para crear un producto y gestionar el id auto incremental. 
+
+	productById: este método se utiliza para buscar un producto por id y retornar el resultado.
+
+	updateProduct: este método se utiliza para buscar un producto por id y modificar los parámetros del producto de forma completa.
+
+	updateParam: este método se utiliza para buscar un producto por id y modificar los parámetros del producto de forma parcial.
+
+	deleteProduct: este método se utiliza para buscar un producto por id y eliminarlo.
+
+-	files: contiene los archivos 
+o	carts.json: archivo que guarda en base los carritos creados y donde los métodos aplican los cambios.
+o	products.json: archivo que guarda en base los productos creados y donde los métodos aplican los cambios.
+
+-	public: contiene los archivos públicos que se podrán consultar por una petición
+o	img: guarda las imágenes
+o	filesTec: guarda los archivos técnicos
+
+

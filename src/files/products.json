@@ -1,0 +1,170 @@
+[
+	{
+		"title": "Producto 1",
+		"description": "Repuesto 1",
+		"code": "# 1",
+		"price": 100,
+		"status": true,
+		"category": "Herramienta 1",
+		"thumbnail": [
+			"img 1 1",
+			"img 2 1"
+		],
+		"stock": 10,
+		"id": 1
+	},
+	{
+		"title": "Producto 2",
+		"description": "Repuesto 2",
+		"code": "# 2",
+		"price": 150,
+		"status": true,
+		"category": "Herramienta 2",
+		"thumbnail": [
+			"img 1 2",
+			"img 2 2"
+		],
+		"stock": 25,
+		"id": 2
+	},
+	{
+		"title": "Producto 3",
+		"description": "Repuesto 3",
+		"code": "# 3",
+		"price": 200,
+		"status": true,
+		"category": "Herramienta 3",
+		"thumbnail": [
+			"img 1 3",
+			"img 2 3"
+		],
+		"stock": 40,
+		"id": 3
+	},
+	{
+		"title": "Producto 4",
+		"description": "Repuesto 4",
+		"code": "# 4",
+		"price": 250,
+		"status": true,
+		"category": "Herramienta 4",
+		"thumbnail": [
+			"img 1 4",
+			"img 2 4"
+		],
+		"stock": 55,
+		"id": 4
+	},
+	{
+		"title": "Producto 5",
+		"description": "Repuesto 5",
+		"code": "# 5",
+		"price": 300,
+		"status": true,
+		"category": "Herramienta 5",
+		"thumbnail": [
+			"img 1 5",
+			"img 2 5"
+		],
+		"stock": 705,
+		"id": 5
+	},
+	{
+		"title": "Producto 6",
+		"description": "Repuesto 6",
+		"code": "# 6",
+		"price": 350,
+		"status": true,
+		"category": "Herramienta 6",
+		"thumbnail": [
+			"img 1 6",
+			"img 2 6"
+		],
+		"stock": 85,
+		"id": 6
+	},
+	{
+		"title": "Producto 7",
+		"description": "Repuesto 7",
+		"code": "# 7",
+		"price": 400,
+		"status": true,
+		"category": "Herramienta 7",
+		"thumbnail": [
+			"img 1 7",
+			"img 2 7"
+		],
+		"stock": 100,
+		"id": 7
+	},
+	{
+		"title": "Producto 8",
+		"description": "Repuesto 8",
+		"code": "# 8",
+		"price": 450,
+		"status": true,
+		"category": "Herramienta 8",
+		"thumbnail": [
+			"img 1 8",
+			"img 2 8"
+		],
+		"stock": 115,
+		"id": 8
+	},
+	{
+		"title": "Producto 9",
+		"description": "Repuesto 9",
+		"code": "# 9",
+		"price": 500,
+		"status": true,
+		"category": "Herramienta 9",
+		"thumbnail": [
+			"img 1 9",
+			"img 2 9"
+		],
+		"stock": 130,
+		"id": 9
+	},
+	{
+		"title": "Producto 10",
+		"description": "Repuesto 10",
+		"code": "# 10",
+		"price": 550,
+		"status": true,
+		"category": "Herramienta 10",
+		"thumbnail": [
+			"img 1 10",
+			"img 2 10"
+		],
+		"stock": 145,
+		"id": 10
+	},
+	{
+		"title": "Producto 11",
+		"description": "Repuesto 11",
+		"code": "# 11",
+		"price": 600,
+		"status": true,
+		"category": "Herramienta 11",
+		"thumbnail": [
+			"img 1 11",
+			"img 2 11"
+		],
+		"stock": 160,
+		"id": 11
+	},
+	{
+		"title": "Producto 13",
+		"description": "Repuesto 13",
+		"code": "# 13",
+		"price": 700,
+		"status": true,
+		"category": "Herramienta 13",
+		"thumbnail": [
+			"img 1 13",
+			"img 2 13"
+		],
+		"stock": 190,
+		"id": 12
+	}
+]
